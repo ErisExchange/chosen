@@ -199,6 +199,7 @@ class Chosen extends AbstractChosen
     this.search_field_disabled()
     this.show_search_field_default()
     this.search_field_scale()
+    this.do_middle_truncate() if @middle_truncate
 
     @parsing = false
 
@@ -250,6 +251,7 @@ class Chosen extends AbstractChosen
       @form_field_jq.trigger("chosen:hiding_dropdown", {chosen: this})
 
     @results_showing = false
+    this.do_middle_truncate() if @middle_truncate
 
 
   set_tab_index: (el) ->
@@ -478,6 +480,17 @@ class Chosen extends AbstractChosen
         evt.preventDefault()
         this.keydown_arrow()
         break
+
+  do_middle_truncate: ->
+    span = @selected_item.find('span').first()
+    target_width = span.width()
+    text = span.text()
+    span.css({position: 'absolute'}) # Temporarily pull span out of layout, in order to see how big it would be
+    len = text.length
+    while span.width() > target_width
+      span.text( text.substr(0, Math.ceil(len/2)) + '\u2026' + text.substr(text.length - Math.floor(len/2)) )
+      len--
+    span.css({position: ''})
 
   search_field_scale: ->
     if @is_multiple

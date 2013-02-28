@@ -23,6 +23,7 @@ class AbstractChosen
     @disable_search = @options.disable_search || false
     @enable_split_word_search = if @options.enable_split_word_search? then @options.enable_split_word_search else true
     @group_search = if @options.group_search? then @options.group_search else true
+    @middle_truncate = @options.middle_truncate || false
     @search_contains = @options.search_contains || false
     @single_backstroke_delete = if @options.single_backstroke_delete? then @options.single_backstroke_delete else true
     @max_selected_options = @options.max_selected_options || Infinity
