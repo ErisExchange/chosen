@@ -539,6 +539,7 @@ class Chosen extends AbstractChosen
         break
 
   do_middle_truncate: ->
+    return if @is_multiple
     span = @selected_item.down('span')
     target_width = span.measure('width')
     text = span.innerHTML
