@@ -292,6 +292,7 @@ class Chosen extends AbstractChosen
 
   choice_build: (item) ->
     choice = $('<li />', { class: "search-choice" }).html("<span>#{item.html}</span>")
+    this.do_middle_truncate() if @middle_truncate
 
     if item.disabled
       choice.addClass 'search-choice-disabled'
@@ -482,17 +483,23 @@ class Chosen extends AbstractChosen
         break
 
   do_middle_truncate: ->
-    return if @is_multiple
-    span = @selected_item.find('span').first()
+    if @is_multiple
+      for span in @search_choices.find('li.search-choice span:not(.chosen-middle-truncate)')
+        this.do_middle_truncate_span($(span))
+    else
+      span = @selected_item.find('span').first()
+      this.do_middle_truncate_span(span)
+
+  do_middle_truncate_span: (span) ->
     target_width = span.width()
     text = span.text()
+    span.addClass 'chosen-middle-truncate'
     span.css({position: 'absolute'}) # Temporarily pull span out of layout, in order to see how big it would be
     len = text.length
     while span.width() > target_width
       span.text( text.substr(0, Math.ceil(len/2)) + '\u2026' + text.substr(text.length - Math.floor(len/2)) )
       len--
     span.css({position: ''})
-    span.addClass 'chosen-middle-truncate'
 
   search_field_scale: ->
     if @is_multiple
