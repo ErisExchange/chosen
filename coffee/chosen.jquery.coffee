@@ -492,6 +492,7 @@ class Chosen extends AbstractChosen
       span.text( text.substr(0, Math.ceil(len/2)) + '\u2026' + text.substr(text.length - Math.floor(len/2)) )
       len--
     span.css({position: ''})
+    span.addClass 'chosen-middle-truncate'
 
   search_field_scale: ->
     if @is_multiple

@@ -492,6 +492,7 @@ class @Chosen extends AbstractChosen
       span.update( text.substr(0, Math.ceil(len/2)) + '&hellip;' + text.substr(text.length - Math.floor(len/2)) )
       len--
     span.setStyle({position: null})
+    span.addClassName 'chosen-middle-truncate'
 
   search_field_scale: ->
     if @is_multiple

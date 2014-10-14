@@ -415,3 +415,9 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
   }
 }
 /* @end */
+/* @group Middle Truncation */
+.chosen-container span.chosen-middle-truncate {
+  overflow: visible;
+  text-overflow: normal;
+}
+/* @end */
