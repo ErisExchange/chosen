@@ -499,6 +499,7 @@ class Chosen extends AbstractChosen
     while span.width() > target_width
       span.text( text.substr(0, Math.ceil(len/2)) + '\u2026' + text.substr(text.length - Math.floor(len/2)) )
       len--
+    span.attr({title: text}) if len < text.length
     span.css({position: ''})
 
   search_field_scale: ->
