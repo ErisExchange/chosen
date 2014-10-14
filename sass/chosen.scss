@@ -432,5 +432,6 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
 .chosen-container span.chosen-middle-truncate {
   overflow: visible;
   text-overflow: normal;
+  white-space: nowrap;
 }
 /* @end */

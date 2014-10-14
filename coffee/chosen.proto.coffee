@@ -485,17 +485,23 @@ class @Chosen extends AbstractChosen
         break
 
   do_middle_truncate: ->
-    return if @is_multiple
-    span = @selected_item.down('span')
+    if @is_multiple
+      for span in @search_choices.select('li.search-choice span:not(.chosen-middle-truncate)')
+        this.do_middle_truncate_span(span)
+    else
+      span = @selected_item.down('span')
+      this.do_middle_truncate_span(span)
+
+  do_middle_truncate_span: (span) ->
     target_width = span.measure('width')
     text = span.innerHTML
+    span.addClassName 'chosen-middle-truncate'
     span.setStyle({position: 'absolute'}) # Temporarily pull span out of layout, in order to see how big it would be
     len = text.length
     while span.measure('width') > target_width
-      span.update( text.substr(0, Math.ceil(len/2)) + '&hellip;' + text.substr(text.length - Math.floor(len/2)) )
+      span.update( text.substr(0, Math.ceil(len/2)) + '\u2026' + text.substr(text.length - Math.floor(len/2)) )
       len--
     span.setStyle({position: null})
-    span.addClassName 'chosen-middle-truncate'
 
   search_field_scale: ->
     if @is_multiple
